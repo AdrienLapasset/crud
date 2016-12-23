@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev" : "nodemon ./bin/www"
+    "dev" : "nodemon ./bin/www",
+    "db" : "mongod --dbpath /Users/adrienlapasset/node/crud/db"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
