@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app='backOffice'>
+<head>
+	<title>Back Office</title>
+
+	<!-- Style librairies -->
+	<link rel='stylesheet' href='bower_components/bootstrap/dist/css/bootstrap.min.css' />
+	
+	<!-- JS librairies -->
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+	<!-- JS files -->
+	<script src="front.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<h1>Back Office</h1>
+			</div>
+		</div>
+		<ui-view></ui-view>
+	</div>
+</body>
+</html>
