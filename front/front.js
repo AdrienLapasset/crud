@@ -1,4 +1,4 @@
-var front = angular.module('backOffice', ['ui.router']);
+var front = angular.module('backOffice', ['ui.router', 'angularFileUpload']);
 
 // Routes
 front.config(function($stateProvider, $urlRouterProvider) {
@@ -70,13 +70,21 @@ front.controller('projectsCtrl', function($scope, projects) {
 	$scope.projects = projects;
 });
 
-front.controller('addProjectCtrl', function($scope, projects) {
+front.controller('addProjectCtrl', function($scope, projects, FileUploader) {
 	$scope.addProject = function() {
 		projects.create($scope.project);
 	};
+
+	$scope.uploader = new FileUploader({
+		url: '/upload',
+		autoUpload: 'true',
+		queueLimit: '1'
+	});
+	console.log($scope.uploader.progress);
+	console.log($scope.uploader);
 });
 
-front.controller('projectCtrl', function($scope, $stateParams, projects) {
+front.controller('projectCtrl', function($scope, $stateParams, projects, FileUploader) {
 	$scope.project = projects[$stateParams.id];
 
 	$scope.updateProject = function() {

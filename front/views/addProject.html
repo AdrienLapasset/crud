@@ -8,6 +8,15 @@
 			<div class="form-group">
 				<textarea rows="4" class="form-control" placeholder="Description" ng-model="project.description"></textarea>
 			</div>
+			<div class="form-group">
+				<input type="file" nv-file-select uploader="uploader"/>
+			</div>
+			<ul>
+				<li ng-repeat="item in uploader.queue">
+					Name: <span ng-bind="item.file.name"></span><br/>
+<!-- 					<button ng-click="item.upload()">upload</button>
+ -->				</li>
+			</ul>
 			<button type="submit" class="btn btn-primary">Ajouter ce projet</button>
 		</form>
 	</div>

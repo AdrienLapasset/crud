@@ -30,10 +30,6 @@ app.use(express.static(path.join(__dirname, 'front')));
 app.use('/', index);
 app.use('/users', users);
 
-app.get('*', function(req, res) {
-    res.sendfile('./front/index.html');
-});
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
