@@ -1,8 +1,9 @@
 var express = require('express');
-var fs = require('fs');
 var router = express.Router();
 var mongoose = require('mongoose');
-
+var multer  = require('multer');
+var upload = multer({ dest: 'front/images/' });
+var fs = require('fs');
 // Models
 var Project = mongoose.model('Project');
 
@@ -22,43 +23,40 @@ router.get('/projects', function(req, res, next) {
 });
 
 // POST
-router.post('/addProject', function(req, res, next) {
+router.post('/addProject', upload.single('file'), function(req, res, next) {
+	console.log(req.file);
 	var project = new Project({
 		title: req.body.title,
-		description: req.body.description
+		description: req.body.description,
 	});
+	if (typeof req.file != "undefined") {
+		project.image = req.file.filename;
+	}
 	project.save(function(err, data) {
 		if(err) {
 			return next(err);
 		}
-		res.json(data);
+		res.redirect('/');
 	});
 });
 
-router.post('/upload', function(req, res, next) {
-	console.log(req.body);
-	// Project.findById(req.params.id, function(err, data) {
-	// 	data.image = fs.readFileSync(req.body.file);
-	// 	data.save(function(err, data) {
-	// 		if(err) {
-	// 			return next(err);
-	// 		}
-	// 		res.json(data);
-	// 	});
-	// });
-});
-
-// PUT
-router.put('/updateProject/:id', function(req, res, next) {
+// Update
+router.post('/updateProject/:id', upload.single('file'), function(req, res, next) {
 	Project.findById(req.params.id, function(err, data) {
 		data.title = req.body.title;
 		data.description = req.body.description;
-		data.updated = Date.now();
+		if (typeof req.file != "undefined") {
+			var link = 'front/images/' + data.image;
+			if (fs.existsSync(link)) {
+				fs.unlink(link);
+			};
+			data.image = req.file.filename;
+		}
 		data.save(function(err, data) {
 			if(err) {
 				return next(err);
 			}
-			res.json(data);
+			res.redirect('/');
 		});
 	});
 })
@@ -66,6 +64,8 @@ router.put('/updateProject/:id', function(req, res, next) {
 // DELETE
 router.delete('/removeProject/:id', function(req, res) {
 	Project.findByIdAndRemove(req.params.id, function(err, data) {
+		var link = 'front/images/' + data.image;
+		fs.unlink(link);
 		res.json(data);
 	});
 })

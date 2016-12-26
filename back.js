@@ -1,3 +1,4 @@
+var subdomain = require('express-subdomain');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -27,7 +28,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'front')));
 
-app.use('/', index);
+// app.use('/', index);
+app.use(subdomain('office', index));
 app.use('/users', users);
 
 // catch 404 and forward to error handler

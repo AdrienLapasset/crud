@@ -1,19 +1,24 @@
+{{projects}}
 {{project}}
 <div class="row">
 	<div class="col-xs-12">
 		<h2>Edit project</h2>
-		<form ng-submit="editProject()">
+		<form action="{{projectUrl}}" method="POST" enctype="multipart/form-data">
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Titre" ng-model="project.title"></input>
+				<input type="text" class="form-control" placeholder="Titre" name="title" ng-model="project.title" required></input>
 			</div>
 			<div class="form-group">
-				<textarea rows="4" class="form-control" placeholder="Description" ng-model="project.description"></textarea>
+				<textarea rows="4" class="form-control" placeholder="Description" name="description" ng-model="project.description" required></textarea>
 			</div>
 			<div class="form-group">
-				<input type="file" nv-file-select uploader="uploader"/>
+				<label class="btn btn-default">
+				Changer l'image
+				<input type="file" name="file" style="display: none;"></input>
+				</label>
 			</div>
-			<button type="submit" class="btn btn-primary" ng-click="updateProject()">Enregistrer</button>
-			<button class="btn btn-danger" ng-click="removeProject()">Delete</button>
+			<input type="submit" class="btn btn-primary" value="Enregistrer"></input>
 		</form>
+		<button class="btn btn-danger" ng-click="removeProject()">Delete</button>
+		<img src="images/{{project.image}}" class="img-responsive">
 	</div>
 </div>
