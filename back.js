@@ -1,4 +1,4 @@
-var subdomain = require('express-subdomain');
+var subdomain = require('subdomain');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,6 +11,7 @@ require('./models/project');
 
 mongoose.connect('mongodb://localhost/db');
 
+var office = require('./routes/office');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -28,8 +29,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'front')));
 
-// app.use('/', index);
-app.use(subdomain('office', index));
+//Subdomain
+app.use(subdomain({ base : 'localhost', removeWWW : true }));
+
+//Use routes
+app.use('/subdomain/office/', office);//office
+app.use('/', index);//website
 app.use('/users', users);
 
 // catch 404 and forward to error handler
