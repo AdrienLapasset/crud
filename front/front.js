@@ -6,7 +6,7 @@ front.config(function($stateProvider, $urlRouterProvider) {
 	.state('login', {
 		url: '/login',
 		templateUrl:'views/login.html',
-		controller: 'authCtrl'
+		controller: 'authCtrl',
 	})
 	.state('projects', {
 		url: '/',
@@ -43,6 +43,13 @@ front.config(function($stateProvider, $urlRouterProvider) {
 
 
 // Controllers
+front.controller('navCtrl', function($scope, $window, $state) {
+	$scope.logOut = function() {
+		$window.localStorage.removeItem('crud-token');
+		$state.go('login');
+	};
+});
+
 front.controller('projectsCtrl', function($scope, projects) {
 	$scope.projects = projects;
 });
@@ -58,9 +65,16 @@ front.controller('projectCtrl', function($scope, $stateParams, projects) {
 	};
 });	
 
-front.controller('authCtrl', function($scope, auth) {
+front.controller('authCtrl', function($scope, $http, $state, $window) {
 	$scope.logIn = function() {
-		auth.logIn($scope.user);
+		$http.post('/authenticate', $scope.user).then(function(res) {
+			if(!res.data.success) {
+				$scope.message = res.data.message;
+			} else {
+				$window.localStorage['crud-token'] = res.data.token;
+				$state.go('projects');
+			}
+		})
 	};
 });
 
@@ -89,34 +103,25 @@ front.factory('projects', function($http, $state, $stateParams) {
 	return projects;
 });
 
-front.factory('auth', function($http, $window, $state) {
+front.factory('auth', function($http, $window) {
 	var auth = {};
-	auth.logIn = function(user) {
-		return $http.post('/authenticate', user).then(function(res) {
-			if(!res.data.success) {
-				console.log(res.data.message)
-			} else {
-				console.log(res.data.message)
-				$window.localStorage['crud-token'] = res.data.token;
-				$state.go('projects');
-			}
-		})
-	};
 
 	auth.isloggedIn = function() {
 		var token = $window.localStorage['crud-token'];
-		console.log('token:' + token)
 		if(typeof token === undefined) {
 			return false;
 		} else {
 			var payload = JSON.parse($window.atob(token.split('.')[1]));
 			if(payload.exp > Date.now() / 1000) { 
-				//Token has expired
+				//Token has not expired
 				return true;
 			}
 		}
 	};
 
+	auth.logOut = function(){
+		$window.localStorage.removeItem('crud-token');
+	};
+
 	return auth;
 });
-

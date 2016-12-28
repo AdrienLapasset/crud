@@ -9,5 +9,7 @@
 			<input type="text" ng-model="user.password"></input>
 			<button type="submit" class="btn btn-primary">Log In</button>
 		</form>
+		<hr/>
+		<div ng-show="message" class="alert alert-danger" role="alert">{{message}}</div>
 	</div>
 </div>

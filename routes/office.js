@@ -90,7 +90,7 @@ router.post('/authenticate', function(req, res, next){
 				res.json({ success: false, message: 'Authentication failed. Wrong password.' });
 			} else {
 				var token = jwt.sign(user, 'secret', {
-					expiresIn: '5s'
+					expiresIn: '24h'
 				});
 				res.json({ success: true, message:'Authentication successed !', token: token});
 			}

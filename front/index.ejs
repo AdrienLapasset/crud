@@ -5,6 +5,7 @@
 
 	<!-- Style librairies -->
 	<link rel='stylesheet' href='bower_components/bootstrap/dist/css/bootstrap.min.css' />
+	<link rel='stylesheet' href='bower_components/font-awesome/css/font-awesome.min.css' />
 	
 	<!-- JS librairies -->
 	<script src="bower_components/angular/angular.min.js"></script>
@@ -14,13 +15,20 @@
 	<script src="front.js"></script>
 </head>
 <body>
+	<nav class="navbar navbar-default" ng-controller="navCtrl">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Back Office</a>
+			</div>				
+			<button class="btn btn-danger navbar-btn navbar-right" ng-click="logOut()"><i class="fa fa-power-off"></i></button>
+		</div>
+	</nav>
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
-				<h1>Back Office</h1>
+				<ui-view></ui-view>
 			</div>
 		</div>
-		<ui-view></ui-view>
 	</div>
 </body>
 </html>
