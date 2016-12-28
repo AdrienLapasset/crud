@@ -1,4 +1,3 @@
-var subdomain = require('subdomain');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -6,14 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var subdomain = require('subdomain');
 
-require('./models/project');
+require('./models/Project');
+require('./models/User');
 
 mongoose.connect('mongodb://localhost/db');
 
 var office = require('./routes/office');
 var index = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
@@ -33,9 +33,9 @@ app.use(express.static(path.join(__dirname, 'front')));
 app.use(subdomain({ base : 'localhost', removeWWW : true }));
 
 //Use routes
-app.use('/subdomain/office/', office);//office
-app.use('/', index);//website
-app.use('/users', users);
+app.use('/subdomain/office/', office);// office.localhost:3000
+app.use('/', index);// localhost:3000
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
