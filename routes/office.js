@@ -11,13 +11,9 @@ var auth = ejwt({secret: 'secret'});
 var User = mongoose.model('User');
 var Project = mongoose.model('Project');
 
-router.get('/login', function(req, res, next) {
-	res.render('login');
-});
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index');
+	res.render('office');
 });
 
 // GET projects

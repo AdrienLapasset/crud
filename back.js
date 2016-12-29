@@ -18,7 +18,7 @@ var index = require('./routes/index');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'front'));
+app.set('views', [__dirname + '/front', __dirname + '/front/office', __dirname + '/front/website']);
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
@@ -35,7 +35,6 @@ app.use(subdomain({ base : 'localhost', removeWWW : true }));
 //Use routes
 app.use('/subdomain/office/', office);// office.localhost:3000
 app.use('/', index);// localhost:3000
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

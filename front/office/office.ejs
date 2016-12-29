@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app='office'>
+<head>
+	<title>Back Office</title>
+
+	<!-- Style librairies -->
+	<link rel='stylesheet' href='bower_components/bootstrap/dist/css/bootstrap.min.css' />
+	<link rel='stylesheet' href='bower_components/font-awesome/css/font-awesome.min.css' />
+	
+	<!-- JS librairies -->
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+	<!-- JS files -->
+	<script src="office/office.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-default" ng-controller="navCtrl">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Back Office</a>
+			</div>				
+			<button class="btn btn-danger navbar-btn navbar-right" ng-click="logOut()"><i class="fa fa-power-off"></i></button>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<ui-view></ui-view>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

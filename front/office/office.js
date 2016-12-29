@@ -1,21 +1,21 @@
-var front = angular.module('backOffice', ['ui.router']);
+var office = angular.module('office', ['ui.router']);
 
 //Do not display issues angular.js:14324
-front.config(['$qProvider', function ($qProvider) {
+office.config(['$qProvider', function ($qProvider) {
     $qProvider.errorOnUnhandledRejections(false);
 }]);
 
 // Routes
-front.config(function($stateProvider, $urlRouterProvider) {
+office.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 	.state('login', {
 		url: '/login',
-		templateUrl:'views/login.html',
+		templateUrl:'office/views/login.html',
 		controller: 'authCtrl',
 	})
 	.state('projects', {
 		url: '/',
-		templateUrl: 'views/projects.html',
+		templateUrl: 'office/views/projects.html',
 		controller: 'projectsCtrl',
 		onEnter: function($state, auth){
 			if(!auth.isloggedIn()) {
@@ -30,12 +30,12 @@ front.config(function($stateProvider, $urlRouterProvider) {
 	})
 	.state('addProject', {
 		url: '/addProject',
-		templateUrl: 'views/addProject.html',
+		templateUrl: 'office/views/addProject.html',
 		controller: 'addProjectCtrl'
 	})
 	.state('project', {
 		url: '/project/{id}',
-		templateUrl: 'views/project.html',
+		templateUrl: 'office/views/project.html',
 		controller: 'projectCtrl',
 		resolve: {
 			projectPromise: function(projects){
@@ -48,21 +48,21 @@ front.config(function($stateProvider, $urlRouterProvider) {
 
 
 // Controllers
-front.controller('navCtrl', function($scope, $window, $state) {
+office.controller('navCtrl', function($scope, $window, $state) {
 	$scope.logOut = function() {
 		$window.localStorage.removeItem('crud-token');
 		$state.go('login');
 	};
 });
 
-front.controller('projectsCtrl', function($scope, projects) {
+office.controller('projectsCtrl', function($scope, projects) {
 	$scope.projects = projects;
 });
 
-front.controller('addProjectCtrl', function($scope, projects) {
+office.controller('addProjectCtrl', function($scope, projects) {
 });
 
-front.controller('projectCtrl', function($scope, $stateParams, projects) {
+office.controller('projectCtrl', function($scope, $stateParams, projects) {
 	$scope.project = projects[$stateParams.id];
 	$scope.projectUrl = 'updateProject/' + projects[$stateParams.id]._id;
 	$scope.removeProject = function() {
@@ -70,7 +70,7 @@ front.controller('projectCtrl', function($scope, $stateParams, projects) {
 	};
 });	
 
-front.controller('authCtrl', function($scope, $http, $state, $window) {
+office.controller('authCtrl', function($scope, $http, $state, $window) {
 	$scope.logIn = function() {
 		$http.post('/authenticate', $scope.user).then(function(res) {
 			if(!res.data.success) {
@@ -85,7 +85,7 @@ front.controller('authCtrl', function($scope, $http, $state, $window) {
 
 
 // Services
-front.factory('projects', function($http, $state, $stateParams) {
+office.factory('projects', function($http, $state, $stateParams) {
 	var projects = [];
 
 	projects.getAll = function() {
@@ -108,7 +108,7 @@ front.factory('projects', function($http, $state, $stateParams) {
 	return projects;
 });
 
-front.factory('auth', function($http, $window) {
+office.factory('auth', function($http, $window) {
 	var auth = {};
 
 	auth.isloggedIn = function() {
