@@ -1,5 +1,10 @@
 var front = angular.module('backOffice', ['ui.router']);
 
+//Do not display issues angular.js:14324
+front.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+}]);
+
 // Routes
 front.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
@@ -12,14 +17,14 @@ front.config(function($stateProvider, $urlRouterProvider) {
 		url: '/',
 		templateUrl: 'views/projects.html',
 		controller: 'projectsCtrl',
-		resolve: {
-			projectPromise: function(projects){
-				return projects.getAll();
-			}
-		},
 		onEnter: function($state, auth){
 			if(!auth.isloggedIn()) {
 				$state.go('login');
+			}
+		},
+		resolve: {
+			projectPromise: function(projects){
+				return projects.getAll();
 			}
 		}
 	})
@@ -108,19 +113,17 @@ front.factory('auth', function($http, $window) {
 
 	auth.isloggedIn = function() {
 		var token = $window.localStorage['crud-token'];
-		if(typeof token === undefined) {
+		if(!token) {
+			console.log('no token');
 			return false;
 		} else {
+			console.log('you got a token');
 			var payload = JSON.parse($window.atob(token.split('.')[1]));
 			if(payload.exp > Date.now() / 1000) { 
 				//Token has not expired
 				return true;
 			}
 		}
-	};
-
-	auth.logOut = function(){
-		$window.localStorage.removeItem('crud-token');
 	};
 
 	return auth;

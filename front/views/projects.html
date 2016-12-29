@@ -1,24 +1,16 @@
-<div class="row">
-	<div class="col-xs-12">
-		{{projects}}
-		<h2>Projets :</h2>
-	</div>
-</div>
-<div class="row" class="list-group">
-	<div ng-repeat="project in projects">
-		<div class="col-xs-12">
-			<a ui-sref="project({id: {{$index}} })" class="list-group-item">
-				<span>{{project.title}}</span>
-				<span class="pull-right">{{project.description}}</span>
-			</a>
-		</div>
-	</div>
+{{projects}}
+<h2>Projets :</h2>
+<hr/>
+<div ng-if="!projects.length" class="text-center">Bou il a même pas de projet !</div>
+<div class="list-group">
+	<a class="list-group-item" ng-repeat="project in projects" ui-sref="project({id: {{$index}} })">
+		<span><strong>{{project.title}}</strong></span>
+		<span class="small pull-right">{{project.description}}</span>
+	</a>
 </div>
 <hr/>
-<div class="row">
-	<div class="col-xs-12">
-		<a ui-sref="addProject">
-			<button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button>
-		</a>
-	</div>
+<div class="text-center">
+	<a ui-sref="addProject">
+		<button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button>
+	</a>
 </div>

@@ -1,15 +1,20 @@
 {{user}}
 <div class="row">
-	<div class="col-xs-12">
+	<div class="col-sm-4 col-sm-offset-4">
 		<h2>Login</h2>
 		<form ng-submit=logIn()>
-			Name:
-			<input type="text" ng-model="user.name"></input>
-			Password:
-			<input type="text" ng-model="user.password"></input>
+			<div class="form-group">
+				<input class="form-control" placeholder="Name" type="text" ng-model="user.name"></input>
+			</div>
+			<div class="form-group">
+				<input class="form-control" placeholder="Password" type="text" ng-model="user.password"></input>
+			</div>
 			<button type="submit" class="btn btn-primary">Log In</button>
 		</form>
-		<hr/>
-		<div ng-show="message" class="alert alert-danger" role="alert">{{message}}</div>
+		<div ng-show="message">
+			<hr/>
+			<div class="alert alert-danger" role="alert">
+				{{message}}
+			</div>
+		</div>
 	</div>
-</div>

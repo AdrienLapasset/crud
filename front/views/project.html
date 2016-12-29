@@ -1,24 +1,27 @@
-{{projects}}
 {{project}}
-<div class="row">
-	<div class="col-xs-12">
-		<h2>Edit project</h2>
-		<form action="{{projectUrl}}" method="POST" enctype="multipart/form-data">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Titre" name="title" ng-model="project.title" required></input>
-			</div>
-			<div class="form-group">
-				<textarea rows="4" class="form-control" placeholder="Description" name="description" ng-model="project.description" required></textarea>
-			</div>
-			<div class="form-group">
-				<label class="btn btn-default">
-				Changer l'image
-				<input type="file" name="file" style="display: none;"></input>
-				</label>
-			</div>
-			<input type="submit" class="btn btn-primary" value="Enregistrer"></input>
-		</form>
-		<button class="btn btn-danger" ng-click="removeProject()">Delete</button>
-		<img src="images/{{project.image}}" class="img-responsive">
-	</div>
+<h2>Edit project</h2>
+<hr/>
+<div class="col-xs-12 col-sm-6">
+	<form action="{{projectUrl}}" method="POST" enctype="multipart/form-data">
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="Titre" name="title" ng-model="project.title" required></input>
+		</div>
+		<div class="form-group">
+			<textarea rows="4" class="form-control" placeholder="Description" name="description" ng-model="project.description" required></textarea>
+		</div>
+		<label ng-if="project.image" class="btn btn-default">
+			Changer l'image
+			<input type="file" name="file" style="display: none;"></input>
+		</label>
+		<label ng-if="!project.image" class="btn btn-default">
+			Ajouter une image
+			<input type="file" name="file" style="display: none;"></input>
+		</label>
+		<input type="submit" class="btn btn-primary" value="Enregistrer"></input>
+		<button type="button" class="btn btn-danger" ng-click="removeProject()">Delete</button>
+	</form>
+</div>
+<div class="col-xs-12 col-sm-6">
+	<hr class="visible-xs-block" />
+	<img src="images/{{project.image}}" class="img-responsive">
 </div>

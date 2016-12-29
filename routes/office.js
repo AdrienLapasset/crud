@@ -71,8 +71,13 @@ router.post('/updateProject/:id', upload.single('file'), function(req, res, next
 // DELETE project by id
 router.delete('/removeProject/:id', function(req, res) {
 	Project.findByIdAndRemove(req.params.id, function(err, data) {
-		var link = 'front/images/' + data.image;
-		fs.unlink(link);
+		if(data.image) {
+			var link = 'front/images/' + data.image;
+			fs.unlink(link);
+		}
+		if(err) {
+			return next(err);
+		}
 		res.json(data);
 	});
 });

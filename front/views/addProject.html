@@ -1,18 +1,15 @@
-<div class="row">
-	<div class="col-xs-12">
-		{{project}}
-		<h2>Add a new project</h2>
-		<form action="/addProject" method="post" enctype="multipart/form-data">
-			<div class="form-group">
-				<input class="form-control" type="text" name="title" placeholder="Titre" ng-model="project.title" required></input>
-			</div>
-			<div class="form-group">
-				<textarea rows="4" class="form-control" placeholder="Description" name="description" ng-model="project.description" required></textarea>
-			</div>
-			<div class="form-group">
-				<input type="file" name="file"></input>
-			</div>
-			<input type="submit" class="btn btn-primary" value="Ajouter" ng-click="addProject()">
-		</form>
+{{project}}
+<h2>Add a new project</h2>
+<hr/>
+<form action="/addProject" method="post" enctype="multipart/form-data">
+	<div class="form-group">
+		<input class="form-control" type="text" name="title" placeholder="Titre" ng-model="project.title" required></input>
 	</div>
-</div>
+	<div class="form-group">
+		<textarea rows="4" class="form-control" placeholder="Description" name="description" ng-model="project.description" required></textarea>
+	</div>
+	<div class="form-group">
+		<input type="file" name="file"></input>
+	</div>
+	<input type="submit" class="btn btn-primary" value="Ajouter" ng-click="addProject()">
+</form>
