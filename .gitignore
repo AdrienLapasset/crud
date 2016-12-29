@@ -3,3 +3,4 @@ node_modules/
 db/**
 front/images/**
 .DS_Store
+style.css.map

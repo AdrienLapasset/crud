@@ -48,7 +48,8 @@ office.config(function($stateProvider, $urlRouterProvider) {
 
 
 // Controllers
-office.controller('navCtrl', function($scope, $window, $state) {
+office.controller('navCtrl', function($scope, $window, $state, auth) {
+	$scope.isloggedIn = auth.isloggedIn;
 	$scope.logOut = function() {
 		$window.localStorage.removeItem('crud-token');
 		$state.go('login');
@@ -93,12 +94,6 @@ office.factory('projects', function($http, $state, $stateParams) {
 			angular.copy(response.data, projects);
 		});
 	};
-
-	// projects.getOne = function(p) {
-	// 	$http.get('/project/' + p._id).then(function(response) {
-	// 		$state.go('projects');
-	// 	});
-	// };
 
 	projects.delete = function(_id) {
 		$http.delete('/removeProject/' + _id).then(function(response) {
