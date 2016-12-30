@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AAEA,IAAK;EACJ,IAAI,EAAE,4BAAe;EAGrB,kBAAc;IACb,WAAW,EAAE,IAAI",
-"sources": ["office.scss"],
+"mappings": "AAEA,IAAK;EACJ,IAAI,EAAE,4BAAe;EACrB,gBAAgB,ECAV,OAAO;EDEb,kBAAc;IACb,WAAW,EAAE,IAAI",
+"sources": ["office.scss","../_variables.scss"],
 "names": [],
 "file": "office.css"
 }

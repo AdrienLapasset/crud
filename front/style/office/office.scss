@@ -1,10 +1,10 @@
-$font-base: 'Work Sans', sans-serif;
+@import '../variables';
 
 body {
 	font: 100% $font-base;
-	// background-color: grey; 
+	background-color: $grey; 
 
 	.navbar-brand {
 		font-weight: bold;
-			}
+	}
 }

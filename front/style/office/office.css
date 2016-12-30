@@ -1,5 +1,6 @@
 body {
-  font: 100% "Work Sans", sans-serif; }
+  font: 100% "Work Sans", sans-serif;
+  background-color: #6b717f; }
   body .navbar-brand {
     font-weight: bold; }
 
