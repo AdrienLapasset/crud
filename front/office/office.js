@@ -75,7 +75,7 @@ office.controller('authCtrl', function($scope, $http, $state, $window) {
 	$scope.logIn = function() {
 		$http.post('/authenticate', $scope.user).then(function(res) {
 			if(!res.data.success) {
-				$scope.message = res.data.message;
+				Materialize.toast(res.data.message, 4000, 'toast-alert');
 			} else {
 				$window.localStorage['crud-token'] = res.data.token;
 				$state.go('projects');

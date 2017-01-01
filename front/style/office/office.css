@@ -1,7 +1,9 @@
 body {
-  font: 100% "Work Sans", sans-serif;
-  background-color: #6b717f; }
-  body .navbar-brand {
-    font-weight: bold; }
+  font: 100% "Work Sans", sans-serif; }
+  body .login form {
+    margin-top: 200px; }
+
+.toast-alert {
+  background-color: red; }
 
 /*# sourceMappingURL=office.css.map */

@@ -3,17 +3,26 @@
 <head>
 	<title>Back Office</title>
 
-	<!-- Style -->
-	<link rel='stylesheet' href='bower_components/bootstrap/dist/css/bootstrap.min.css' />
-	<link rel='stylesheet' href='bower_components/font-awesome/css/font-awesome.min.css' />
-	<link rel='stylesheet' href='style/office/office.css' />
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	
 	<!-- JS librairies -->
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/materialize/dist/js/materialize.min.js"></script>
 	<script src="bower_components/angular/angular.min.js"></script>
 	<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
 	<!-- JS files -->
 	<script src="office/office.js"></script>
+	
+	<!-- Style -->
+	<!-- <link rel='stylesheet' href='bower_components/bootstrap/dist/css/bootstrap.min.css' /> -->
+	<link type="text/css" rel='stylesheet' href='bower_components/materialize/css/materialize.css' media="screen,projection" />
+	<link href='bower_components/font-awesome/css/font-awesome.min.css' />
+	<link rel='stylesheet' href='style/office/office.css' />
+	
+	<!-- Icons -->
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 	<div ng-controller="navCtrl">
@@ -28,7 +37,7 @@
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col s12">
 				<ui-view></ui-view>
 			</div>
 		</div>

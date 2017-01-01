@@ -2,9 +2,22 @@
 
 body {
 	font: 100% $font-base;
-	background-color: $grey; 
+	// background-color: $grey-60;
 
-	.navbar-brand {
-		font-weight: bold;
+	.login {
+		form {
+			// color: $orange-base; 
+			margin-top: 200px;
+		}
 	}
 }
+
+.toast-alert {
+	background-color: red;
+}
+
+// .btn-flat {
+// 	&:focus {
+// background-color: transparent;
+// 	}
+// }

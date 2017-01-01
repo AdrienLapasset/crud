@@ -1,21 +1,20 @@
-{{user}}
+<!-- {{user}} -->
 <div class="row login">
-	<div class="col-sm-4 col-sm-offset-4">
-		<h2>Login</h2>
-		<form ng-submit=logIn()>
-			<div class="form-group">
-				<input class="form-control" placeholder="Name" type="text" ng-model="user.name"></input>
-			</div>
-			<div class="form-group">
-				<input class="form-control" placeholder="Password" type="text" ng-model="user.password"></input>
-			</div>
-			<button type="submit" class="btn btn-primary">Log In</button>
-		</form>
-		<div ng-show="message">
-			<hr/>
-			<div class="alert alert-danger" role="alert">
-				{{message}}
-			</div>
+	<form ng-submit=logIn() class="col s4 offset-s4">
+		<div class="input-field">
+			<i class="material-icons prefix">supervisor_account</i>
+			<input id="name" type="text" ng-model="user.name"></input>
+			<label for="name">Name</label>
 		</div>
-	</div>
+		<div class="input-field">
+			<i class="material-icons prefix">vpn_key</i>
+			<input id="password" type="text" ng-model="user.password"></input>
+			<label for="password">Password</label>
+		</div>
+		<div class="center-align">
+			<button class="waves-effect waves-orange btn-flat" type="submit">
+				Log in
+			</button>
+		</div>
+	</form>
 </div>
