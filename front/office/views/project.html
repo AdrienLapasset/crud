@@ -1,27 +1,31 @@
-{{project}}
-<h2>Edit project</h2>
-<hr/>
-<div class="col-xs-12 col-sm-6">
+<!-- {{project}} -->
+<h3>Edit project</h3>
+<div class="col s12 m6">
 	<form action="{{projectUrl}}" method="POST" enctype="multipart/form-data">
-		<div class="form-group">
-			<input type="text" class="form-control" placeholder="Titre" name="title" ng-model="project.title" required></input>
+		<div class="input-field">
+			<input id="title" type="text" name="title" ng-model="project.title" required></input>
+			<label class="active" for="title">Title</label>
 		</div>
-		<div class="form-group">
-			<textarea rows="4" class="form-control" placeholder="Description" name="description" ng-model="project.description" required></textarea>
+		<div class="input-field">
+			<textarea rows="4" class="materialize-textarea" id="description" name="description" ng-model="project.description" required></textarea>
+			<label class="active" for="description">Description</label>
 		</div>
-		<label ng-if="project.image" class="btn btn-default">
-			Changer l'image
-			<input type="file" name="file" style="display: none;"></input>
-		</label>
-		<label ng-if="!project.image" class="btn btn-default">
-			Ajouter une image
-			<input type="file" name="file" style="display: none;"></input>
-		</label>
-		<input type="submit" class="btn btn-primary" value="Enregistrer"></input>
-		<button type="button" class="btn btn-danger" ng-click="removeProject()">Delete</button>
+		<div class="file-field input-field">
+			<div class="btn">
+				<span ng-if="project.image">Changer l'image</span>
+				<span ng-if="!project.image">Ajouter une image</span>
+				<input type="file">
+			</div>
+			<div class="file-path-wrapper">
+				<input class="file-path validate" type="text">
+			</div>
+		</div>
+		<input type="submit" class="btn-large" value="Enregistrer"></input>
+		<div class="fixed-action-btn">
+			<a ng-click="removeProject()" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">delete</i></a>
+		</div>
 	</form>
 </div>
-<div class="col-xs-12 col-sm-6">
-	<hr class="visible-xs-block" />
-	<img src="images/{{project.image}}" class="img-responsive">
+<div class="col s12 m6">
+	<img ng-src="images/{{project.image}}" class="hoverable responsive-img">
 </div>

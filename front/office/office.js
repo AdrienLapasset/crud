@@ -12,6 +12,11 @@ office.config(function($stateProvider, $urlRouterProvider) {
 		url: '/login',
 		templateUrl:'office/views/login.html',
 		controller: 'authCtrl',
+		onEnter: function($state, auth){
+			if(auth.isloggedIn()) {
+				$state.go('home');
+			}
+		},
 	})
 	.state('projects', {
 		url: '/',

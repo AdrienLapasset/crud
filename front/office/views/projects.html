@@ -1,16 +1,16 @@
-{{projects}}
-<h2>Projets :</h2>
-<hr/>
+<!-- {{projects}} -->
+<h3>Projects :</h3>
 <div ng-if="!projects.length" class="text-center">Bou il a même pas de projet !</div>
-<div class="list-group">
-	<a class="list-group-item" ng-repeat="project in projects" ui-sref="project({id: {{$index}} })">
-		<span><strong>{{project.title}}</strong></span>
-		<span class="small pull-right">{{project.description}}</span>
+
+<div class="collection">
+	<a class="collection-item avatar hoverable" ng-repeat="project in projects" ui-sref="project({id: $index })">
+		<img ng-if="project.image" ng-src="images/{{project.image}}" alt="" class="circle">
+		<span class="title">{{project.title}}</span>
+		<p class="truncate">{{project.description}}</p>
 	</a>
 </div>
-<hr/>
-<div class="text-center">
-	<a ui-sref="addProject">
-		<button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button>
+<div class="center-align">
+	<a ui-sref="addProject" class="btn-floating" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">
+		<i class="material-icons">add</i>
 	</a>
 </div>
