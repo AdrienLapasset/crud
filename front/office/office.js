@@ -28,7 +28,7 @@ office.config(function($stateProvider, $urlRouterProvider) {
 			}
 		},
 		resolve: {
-			projectPromise: function(projects){
+			projectsPromise: function(projects){
 				return projects.getAll();
 			}
 		}
@@ -39,14 +39,9 @@ office.config(function($stateProvider, $urlRouterProvider) {
 		controller: 'addProjectCtrl'
 	})
 	.state('project', {
-		url: '/project/{id}',
+		url: '/project',
 		templateUrl: 'office/views/project.html',
 		controller: 'projectCtrl',
-		resolve: {
-			projectPromise: function(projects){
-				return projects.getAll();//projects.getOne to do !
-			}
-		}
 	})
 	$urlRouterProvider.otherwise('/');
 })
@@ -61,18 +56,22 @@ office.controller('navCtrl', function($scope, $window, $state, auth) {
 	};
 });
 
-office.controller('projectsCtrl', function($scope, projects) {
+office.controller('projectsCtrl', function($scope, projects, $state) {
 	$scope.projects = projects;
+	$scope.gotoProject = function(_id, title) {
+		projects.getOne(_id); 
+		$state.go('project');
+	};
 });
 
 office.controller('addProjectCtrl', function($scope, projects) {
 });
 
 office.controller('projectCtrl', function($scope, $stateParams, projects) {
-	$scope.project = projects[$stateParams.id];
-	$scope.projectUrl = 'updateProject/' + projects[$stateParams.id]._id;
+	$scope.project = projects;
+	$scope.projectUrl = 'updateProject/' + projects._id;
 	$scope.removeProject = function() {
-		projects.delete($scope.project._id);
+		projects.delete(projects._id);
 	};
 });	
 
@@ -96,6 +95,12 @@ office.factory('projects', function($http, $state, $stateParams) {
 
 	projects.getAll = function() {
 		$http.get('/projects').then(function(response) {
+			angular.copy(response.data, projects);
+		});
+	};
+
+	projects.getOne = function(_id) {
+		$http.get('/project/' + _id).then(function(response) {
 			angular.copy(response.data, projects);
 		});
 	};
@@ -125,6 +130,5 @@ office.factory('auth', function($http, $window) {
 			}
 		}
 	};
-
 	return auth;
 });

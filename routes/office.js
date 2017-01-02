@@ -16,9 +16,19 @@ router.get('/', function(req, res, next) {
 	res.render('office');
 });
 
-// GET projects
+// GET all
 router.get('/projects', function(req, res, next) {
 	Project.find().exec(function(err, data) {
+		if(err) {
+			return next(err);
+		}
+		res.json(data);
+	});
+});
+
+// GET one
+router.get('/project/:id', function(req, res, next) {
+	Project.findById(req.params.id, function(err, data) {
 		if(err) {
 			return next(err);
 		}
