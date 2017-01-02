@@ -3,6 +3,9 @@ body {
   body .login form {
     margin-top: 200px; }
 
+a {
+  cursor: pointer; }
+
 .toast-alert {
   background-color: red; }
 

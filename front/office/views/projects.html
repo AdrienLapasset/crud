@@ -6,14 +6,14 @@
 </div>
 <div ng-if="!projects.length" class="center-align">Bou il a même pas de projet !</div>
 <div class="collection">
-	<a class="collection-item avatar hoverable" ng-repeat="project in projects | filter : search" ng-click="gotoProject(project._id, project.title)">
+	<a class="collection-item avatar hoverable" ng-repeat="project in projects | orderBy:$index:true | filter:search" ng-click="gotoProject(project._id, project.title)">
 		<img ng-if="project.image" ng-src="images/{{project.image}}" alt="" class="circle">
 		<span class="title">{{project.title}}</span>
 		<p class="truncate">{{project.description}}</p>
 	</a>
 </div>
 <div class="fixed-action-btn">
-	<a ui-sref="addProject" class="btn-floating btn-large" data-position="left" data-delay="50" data-tooltip="I am tooltip">
+	<a ui-sref="addProject" class="btn-floating btn-large waves-effect waves-light" data-position="left" data-delay="50" data-tooltip="I am tooltip">
 		<i class="material-icons">add</i>
 	</a>
 </div>
