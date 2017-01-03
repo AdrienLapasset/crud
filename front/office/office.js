@@ -2,7 +2,7 @@ var office = angular.module('office', ['ui.router']);
 
 //Do not display issues angular.js:14324
 office.config(['$qProvider', function ($qProvider) {
-    $qProvider.errorOnUnhandledRejections(false);
+	$qProvider.errorOnUnhandledRejections(false);
 }]);
 
 // Routes
@@ -39,7 +39,7 @@ office.config(function($stateProvider, $urlRouterProvider) {
 		controller: 'addProjectCtrl'
 	})
 	.state('project', {
-		url: '/project',
+		url: '/project/:id',
 		templateUrl: 'office/views/project.html',
 		controller: 'projectCtrl',
 	})
@@ -58,21 +58,21 @@ office.controller('navCtrl', function($scope, $window, $state, auth) {
 
 office.controller('projectsCtrl', function($scope, projects, $state) {
 	$scope.projects = projects;
-	$scope.gotoProject = function(_id, title) {
-		projects.getOne(_id); 
-		$state.go('project');
-	};
+	// $scope.gotoProject = function(_id, title) {
+	// 	// projects.getOne(_id); 
+	// 	$state.go('project');
+	// };
 });
 
-office.controller('addProjectCtrl', function($scope, projects) {
-});
-
-office.controller('projectCtrl', function($scope, $stateParams, projects) {
-	$scope.project = projects;
-	$scope.projectUrl = 'updateProject/' + projects._id;
-	$scope.removeProject = function() {
-		projects.delete(projects._id);
-	};
+office.controller('projectCtrl', function($scope, $stateParams, projects, projectFctr) {
+	var id = $stateParams.id;	
+	projectFctr.getOne(id).then(function(response) {
+		$scope.project = response.data;
+		$scope.projectUrl = 'updateProject/' + $scope.project._id;
+		$scope.removeProject = function() {
+			projects.delete($scope.project._id);
+		};
+	});
 });	
 
 office.controller('authCtrl', function($scope, $http, $state, $window) {
@@ -92,19 +92,11 @@ office.controller('authCtrl', function($scope, $http, $state, $window) {
 // Services
 office.factory('projects', function($http, $state, $stateParams) {
 	var projects = [];
-
 	projects.getAll = function() {
 		$http.get('/projects').then(function(response) {
 			angular.copy(response.data, projects);
 		});
 	};
-
-	projects.getOne = function(_id) {
-		$http.get('/project/' + _id).then(function(response) {
-			angular.copy(response.data, projects);
-		});
-	};
-
 	projects.delete = function(_id) {
 		$http.delete('/removeProject/' + _id).then(function(response) {
 			$state.go('projects');
@@ -112,6 +104,15 @@ office.factory('projects', function($http, $state, $stateParams) {
 	};
 	return projects;
 });
+
+office.factory('projectFctr', function($http) {
+	return {
+		getOne: function(_id) {
+			return $http.get('/project/' + _id)
+		}
+	};
+});
+
 
 office.factory('auth', function($http, $window) {
 	var auth = {};
@@ -122,7 +123,7 @@ office.factory('auth', function($http, $window) {
 			console.log('no token');
 			return false;
 		} else {
-			console.log('you got a token');
+			// console.log('you got a token');
 			var payload = JSON.parse($window.atob(token.split('.')[1]));
 			if(payload.exp > Date.now() / 1000) { 
 				//Token has not expired

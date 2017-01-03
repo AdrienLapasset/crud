@@ -6,7 +6,7 @@
 </div>
 <div ng-if="!projects.length" class="center-align">Bou il a même pas de projet !</div>
 <div class="collection">
-	<a class="collection-item avatar hoverable" ng-repeat="project in projects | orderBy:$index:true | filter:search" ng-click="gotoProject(project._id, project.title)">
+	<a class="collection-item avatar hoverable" ng-repeat="project in projects | orderBy:$index:true | filter:search" ui-sref="project({id: project._id })">
 		<img ng-if="project.image" ng-src="images/{{project.image}}" alt="" class="circle">
 		<span class="title">{{project.title}}</span>
 		<p class="truncate">{{project.description}}</p>
