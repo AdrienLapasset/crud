@@ -36,7 +36,7 @@ office.config(function($stateProvider, $urlRouterProvider) {
 	.state('addProject', {
 		url: '/addProject',
 		templateUrl: 'office/views/addProject.html',
-		controller: 'addProjectCtrl'
+		// controller: 'addProjectCtrl'
 	})
 	.state('project', {
 		url: '/project/:id',
